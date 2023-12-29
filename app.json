@@ -4,10 +4,10 @@
     "slug": "stockline",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/app-logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/Stockline.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

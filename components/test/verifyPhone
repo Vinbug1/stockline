@@ -1,0 +1,53 @@
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react-native';
+import PhoneVerify from './PhoneVerify';
+
+describe('PhoneVerify Component', () => {
+  it('renders correctly', () => {
+    const { getByText, getByPlaceholderText, getByTestId } = render(<PhoneVerify />);
+    
+    // Check if the component renders the required text
+    expect(getByText('Enter your phone number')).toBeDefined();
+
+    // Check if the phone input and country picker are rendered
+    expect(getByPlaceholderText('Phone Number')).toBeDefined();
+    expect(getByTestId('country-picker')).toBeDefined();
+
+    // Add more checks as needed based on your component's structure
+  });
+
+  it('handles country picker toggle correctly', () => {
+    const { getByTestId } = render(<PhoneVerify />);
+    
+    // Simulate pressing the country picker button
+    fireEvent.press(getByTestId('country-picker-button'));
+
+    // Check if the country picker visibility is toggled
+    // You may need to modify this expectation based on your actual logic
+    expect(getByTestId('country-picker').props.visible).toBe(true);
+  });
+
+  it('updates state on phone input change', () => {
+    const { getByPlaceholderText } = render(<PhoneVerify />);
+    
+    // Simulate entering a phone number
+    fireEvent.changeText(getByPlaceholderText('Phone Number'), '1234567890');
+
+    // Check if the state is updated correctly
+    // You may need to modify this expectation based on your actual state structure
+    expect(getByPlaceholderText('Phone Number').props.value).toBe('1234567890');
+  });
+
+  it('handles form submission correctly', () => {
+    const { getByText, getByTestId } = render(<PhoneVerify />);
+    
+    // Simulate pressing the submit button
+    fireEvent.press(getByText('Continue'));
+
+    // Check if the navigation to the correct screen is triggered
+    // You may need to modify this expectation based on your actual navigation logic
+    expect(getByTestId('navigation-mock').props.route.name).toBe('CodeScreen');
+  });
+
+  // Add more test cases as needed based on your component's functionality
+});

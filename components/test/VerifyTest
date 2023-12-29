@@ -1,0 +1,46 @@
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react-native';
+import VerifyCode from './VerifyCode';
+
+describe('VerifyCode Component', () => {
+  it('renders correctly', () => {
+    const { getByText, getByTestId } = render(<VerifyCode />);
+    
+    // Check if the component renders the required text
+    expect(getByText('Enter verification code')).toBeDefined();
+
+    // Check if the back button is rendered
+    expect(getByTestId('back-button')).toBeDefined();
+
+    // Check if the pin view component is rendered
+    expect(getByTestId('pin-view')).toBeDefined();
+  });
+
+  it('handles button presses correctly', () => {
+    const { getByTestId } = render(<VerifyCode />);
+    
+    // Simulate pressing the back button
+    fireEvent.press(getByTestId('back-button'));
+
+    // Add more button press simulations as needed based on your component's logic
+
+    // Example: Simulate pressing the custom left button
+    // fireEvent.press(getByTestId('pin-view-custom-left-button'));
+
+    // Example: Simulate pressing the custom right button
+    // fireEvent.press(getByTestId('pin-view-custom-right-button'));
+  });
+
+  it('updates state on pin input', () => {
+    const { getByTestId } = render(<VerifyCode />);
+    
+    // Simulate entering a pin
+    fireEvent(getByTestId('pin-view'), 'onValueChange', '1234');
+
+    // Check if the state is updated correctly
+    // You may need to modify this expectation based on your actual state structure
+    expect(getByTestId('pin-view').props.enteredPin).toBe('1234');
+  });
+
+  // Add more test cases as needed based on your component's functionality
+});

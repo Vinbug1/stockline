@@ -1,0 +1,43 @@
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react-native';
+import SignUp from './SignUp';
+
+describe('SignUp Component', () => {
+  it('renders correctly', () => {
+    const { getByPlaceholderText, getByText } = render(<SignUp />);
+    
+    // Check if the input fields and buttons are rendered
+    expect(getByPlaceholderText('Enter UserName')).toBeDefined();
+    expect(getByPlaceholderText('Email')).toBeDefined();
+    expect(getByPlaceholderText('Password')).toBeDefined();
+    expect(getByText('Continue')).toBeDefined();
+  });
+
+  it('updates state on input change', () => {
+    const { getByPlaceholderText } = render(<SignUp />);
+    
+    // Simulate typing in the input fields
+    fireEvent.changeText(getByPlaceholderText('Enter UserName'), 'john_doe');
+    fireEvent.changeText(getByPlaceholderText('Email'), 'john@example.com');
+    fireEvent.changeText(getByPlaceholderText('Password'), 'securePassword');
+
+    // Check if the state is updated correctly
+    // You may need to modify these expectations based on your actual state structure
+    expect(getByPlaceholderText('Enter UserName').props.value).toBe('john_doe');
+    expect(getByPlaceholderText('Email').props.value).toBe('john@example.com');
+    expect(getByPlaceholderText('Password').props.value).toBe('securePassword');
+  });
+
+  it('toggles password visibility on icon press', () => {
+    const { getByTestId } = render(<SignUp />);
+    
+    // Simulate pressing the password visibility icon
+    fireEvent.press(getByTestId('password-toggle-icon'));
+
+    // Check if the state is updated correctly
+    // You may need to modify this expectation based on your actual state structure
+    expect(getByTestId('password-toggle-icon').props.name).toBe('eye-off-outline');
+  });
+
+  // Add more test cases as needed based on your component's functionality
+});
